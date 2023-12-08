@@ -33,17 +33,17 @@ public class User {
     @Column(unique = true)
     private String email;
 
-    @Column
+    @Column(nullable = false)
     @NotBlank(message = "Password is required")
     @Size(min = 8, message = "Password should have at least 8 characters")
     private String password;
 
-    @Column
+    @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     @Past
     private Date birthdate;
 
-    @Column
+    @Column(nullable = false)
     private boolean premium;
 
 }
