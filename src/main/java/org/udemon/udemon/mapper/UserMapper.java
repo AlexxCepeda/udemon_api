@@ -1,16 +1,13 @@
 package org.udemon.udemon.mapper;
 
 
-import org.mapstruct.InjectionStrategy;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.*;
 import org.udemon.udemon.dto.CreateUserDTO;
 import org.udemon.udemon.dto.UpdateUserDTO;
 import org.udemon.udemon.dto.UserDTO;
 import org.udemon.udemon.models.User;
 
-@Mapper(componentModel = "spring", injectionStrategy = InjectionStrategy.CONSTRUCTOR)
+@Mapper(componentModel = "spring", injectionStrategy = InjectionStrategy.CONSTRUCTOR, nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface UserMapper {
     UserDTO toDTO(User model);
 

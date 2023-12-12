@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.udemon.udemon.dto.CreateUserDTO;
 import org.udemon.udemon.dto.UpdateUserDTO;
 import org.udemon.udemon.dto.UserDTO;
+import org.udemon.udemon.exceptions.UserNotFoundException;
 import org.udemon.udemon.mapper.UserMapper;
 import org.udemon.udemon.models.User;
 import org.udemon.udemon.repository.UserRepository;
@@ -25,10 +26,10 @@ public class UserService {
         return repository.findAll().stream().map(mapper::toDTO).toList();
     }
 
-    public UserDTO findById(long id) throws Exception {
+    public UserDTO findById(long id) throws UserNotFoundException {
         Optional<User> result = repository.findById(id);
         if (!result.isPresent()) {
-            throw new Exception("No existe id");
+            throw new UserNotFoundException(id);
         }
         User user = result.get();
         return mapper.toDTO(user);
@@ -39,11 +40,11 @@ public class UserService {
         return mapper.toDTO(entity);
     }
 
-    public void update(long id, UpdateUserDTO data) throws Exception{
+    public void update(long id, UpdateUserDTO data) throws UserNotFoundException {
         Optional<User> result = repository.findById(id);
 
         if (!result.isPresent()) {
-            throw new Exception("No existe el id");
+            throw new UserNotFoundException(id);
         }
         User user = result.get();
 
@@ -53,10 +54,10 @@ public class UserService {
         repository.save(user);
     }
 
-    public void delete(long id) throws Exception{
+    public void delete(long id) throws UserNotFoundException{
         Optional<User> result = repository.findById(id);
         if (!result.isPresent()) {
-            throw new Exception("No existe id");
+            throw new UserNotFoundException(id);
         }
         repository.deleteById(id);
     }
